@@ -36,6 +36,7 @@ const images = [
 
 const ImageGallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isRtl, setIsRtl] = useState(false);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -62,8 +63,16 @@ const ImageGallery = () => {
     return () => window.removeEventListener("keydown", handleKeydown);
   }, []);
 
+  const toggleDirection = () => {
+    setIsRtl((prev) => !prev);
+  };
+
   return (
-    <div className="gallery-container">
+    <div className={`gallery-container ${isRtl ? "rtl" : ""}`}>
+      <button onClick={toggleDirection} className="direction-toggle">
+        Switch to {isRtl ? "LTR" : "RTL"}
+      </button>
+
       <div className="gallery-grid">
         {images.map((image) => (
           <div key={image.id} className="gallery-item">
@@ -82,7 +91,11 @@ const ImageGallery = () => {
           <span className="lightbox-close" onClick={closeLightbox}>
             &times;
           </span>
-          <img src={selectedImage.src} alt={selectedImage.alt} />
+          <img
+            src={selectedImage.src}
+            alt={selectedImage.alt}
+            onClick={(e) => e.stopPropagation()}
+          />
           <button
             className="prev"
             onClick={(e) => {
