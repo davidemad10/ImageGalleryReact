@@ -84,41 +84,44 @@ const ImageGallery = () => {
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState("en");
 
-  //===========================================================
-  //for dark  mode
+  // Dark mode initialization
   useEffect(() => {
     const savedTheme = localStorage.getItem("isDarkMode");
     if (savedTheme) {
       setIsDarkMode(JSON.parse(savedTheme));
     }
   }, []);
+
+  // Dark mode toggle
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
+  // Update localStorage and body class on dark mode change
   useEffect(() => {
     localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
     document.body.className = isDarkMode ? "" : "light";
   }, [isDarkMode]);
-  //===========================================================
 
-  const changeLanguage = (lng) => {
-    setLanguage((prevLang) => {
-      const newLang = prevLang === "en" ? "ar" : "en";
-      i18n.changeLanguage(newLang);
-      setIsRtl(newLang === "ar");
-      return newLang;
-    });
+  // Language change handler
+  const changeLanguage = () => {
+    const newLang = language === "en" ? "ar" : "en";
+    i18n.changeLanguage(newLang);
+    setIsRtl(newLang === "ar");
+    setLanguage(newLang);
   };
 
+  // Image click handler
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
 
+  // Close lightbox
   const closeLightbox = () => {
     setSelectedImage(null);
   };
 
+  // Handle previous/next image
   const handlePrevNext = (direction) => {
     const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
     const nextIndex =
@@ -126,7 +129,8 @@ const ImageGallery = () => {
     setSelectedImage(images[nextIndex]);
   };
 
-  React.useEffect(() => {
+  // Keyboard event handling for lightbox
+  useEffect(() => {
     const handleKeydown = (e) => {
       if (e.key === "Escape") {
         closeLightbox();
@@ -138,8 +142,9 @@ const ImageGallery = () => {
     };
     window.addEventListener("keydown", handleKeydown);
     return () => window.removeEventListener("keydown", handleKeydown);
-  }, [selectedImage, handlePrevNext, closeLightbox]);
+  }, [selectedImage]);
 
+  // Toggle drawer state
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -172,7 +177,7 @@ const ImageGallery = () => {
             {isDarkMode ? t("light_mode") : t("dark_mode")}
           </Button>
 
-          {/* Language toggle buttons */}
+          {/* Language toggle button */}
           <Button color="inherit" onClick={changeLanguage}>
             {language === "en" ? "العربية" : "English"}
           </Button>
