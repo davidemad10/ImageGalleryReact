@@ -173,7 +173,7 @@ const ImageGallery = () => {
           <Button
             color="inherit"
             onClick={toggleDarkMode}
-            sx={{ ml: isRtl ? 0 : 2, mr: isRtl ? 2 : 0 }}
+            sx={{ ml: isRtl ? 0 : 2, mr: isRtl ? 2 : 0, m: 1 }}
           >
             {isDarkMode ? t("light_mode") : t("dark_mode")}
           </Button>
