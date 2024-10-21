@@ -10,6 +10,8 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import { useTranslation } from "react-i18next";
+import "../i18n";
 
 const images = [
   {
@@ -79,6 +81,8 @@ const ImageGallery = () => {
   const [isRtl, setIsRtl] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState("en");
 
   //===========================================================
   //for dark  mode
@@ -98,8 +102,13 @@ const ImageGallery = () => {
   }, [isDarkMode]);
   //===========================================================
 
-  const toggleDirection = () => {
-    setIsRtl((prev) => !prev);
+  const changeLanguage = (lng) => {
+    setLanguage((prevLang) => {
+      const newLang = prevLang === "en" ? "ar" : "en";
+      i18n.changeLanguage(newLang);
+      setIsRtl(newLang === "ar");
+      return newLang;
+    });
   };
 
   const handleImageClick = (image) => {
@@ -157,7 +166,7 @@ const ImageGallery = () => {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            Images
+            {t("gallery_title")}
           </Typography>
 
           {/* Dark mode toggle button */}
@@ -166,12 +175,12 @@ const ImageGallery = () => {
             onClick={toggleDarkMode}
             sx={{ ml: isRtl ? 0 : 2, mr: isRtl ? 2 : 0 }}
           >
-            {isDarkMode ? "Light Mode" : "Dark Mode"}
+            {isDarkMode ? t("light_mode") : t("dark_mode")}
           </Button>
 
-          {/* RTL toggle button */}
-          <Button color="inherit" onClick={toggleDirection} sx={{ ml: 2 }}>
-            Switch to {isRtl ? "LTR" : "RTL"}
+          {/* Language toggle buttons */}
+          <Button color="inherit" onClick={changeLanguage}>
+            {language === "en" ? "العربية" : "English"}
           </Button>
         </Toolbar>
       </AppBar>

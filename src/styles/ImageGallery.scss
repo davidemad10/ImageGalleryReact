@@ -1,9 +1,16 @@
-.gallery-container {
-  padding: 20px;
+body {
+  &.light {
+    background-color: #f0f0f0;
+    color: #000;
+  }
 }
 
-.rtl {
-  direction: rtl;
+.gallery-container {
+  padding: 20px;
+  &.rtl {
+    direction: rtl;
+    text-align: right;
+  }
 }
 
 .direction-toggle {
