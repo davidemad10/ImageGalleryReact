@@ -14,11 +14,15 @@
    ```bash
    git clone https://github.com/davidemad10/ImageGalleryReact.git
    ```
-2. Install dependencies:
+2. Go to repo directory:
+   ```bash
+   cd ImageGalleryReact
+   ```
+3. Install dependencies:
    ```bash
    npm install
    ```
-3. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
