@@ -154,12 +154,6 @@ const ImageGallery = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ width: "100%", top: 0 }}>
         <Toolbar variant="dense" sx={{ direction: isRtl ? "rtl" : "ltr" }}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2, order: isRtl ? 2 : 0 }}
-          ></IconButton>
           <Typography
             variant="h6"
             color="inherit"
